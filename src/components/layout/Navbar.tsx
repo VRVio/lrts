@@ -24,6 +24,9 @@ const Navbar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             LRTS दिल्ली
           </span>
+          <span className="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">
+                DEMO
+              </span>
         </Link>
         <button
           type="button"
