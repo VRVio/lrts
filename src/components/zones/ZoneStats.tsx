@@ -51,14 +51,7 @@ const ZoneStats: React.FC = () => {
       changeType: 'increase',
       color: 'yellow',
     },
-    {
-      name: 'Avg. Fare',
-      value: '₹35',
-      icon: Wallet,
-      change: 'No change',
-      changeType: 'neutral',
-      color: 'red',
-    },
+
     {
       name: 'E-Rickshaws',
       value: '85%',
