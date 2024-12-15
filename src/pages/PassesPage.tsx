@@ -6,7 +6,7 @@ const PassesPage: React.FC = () => {
   const passes = [
     {
       title: 'Basic',
-      price: '299',
+      price: '999',
       duration: 'month',
       features: [
         { text: 'Unlimited rides in one zone', included: true },
@@ -16,27 +16,16 @@ const PassesPage: React.FC = () => {
       ],
     },
     {
-      title: 'Pro',
-      price: '499',
+      title: 'Standard',
+      price: '1499',
       duration: 'month',
       features: [
-        { text: 'Unlimited rides in one zone', included: true },
+        { text: 'Unlimited rides in Multiple Zones', included: true },
         { text: 'Peak hour access', included: true },
         { text: 'Multi-zone access', included: true },
         { text: 'Priority booking', included: true },
       ],
       popular: true,
-    },
-    {
-      title: 'Family',
-      price: '899',
-      duration: 'month',
-      features: [
-        { text: 'Unlimited rides in one zone', included: true },
-        { text: 'Peak hour access', included: true },
-        { text: 'Multi-zone access', included: true },
-        { text: 'Up to 4 family members', included: true },
-      ],
     },
   ];
 
