@@ -1,5 +1,4 @@
 import React from 'react';
-import Typical from 'react-typical';
 
 const Hero = () => {
   return (
@@ -9,13 +8,9 @@ const Hero = () => {
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-800 sm:text-5xl md:text-6xl">
-                <span className="block">Your Local</span>
+                <span className="block">Your Local Rickshaw Transit System</span>
                 <span className="block text-blue-600">
-                  <Typical
-                    steps={['Rickshaw Transit System', 5000, 'Mobility Revolution!', 2000]}
-                    loop={Infinity}
-                    wrapper="span"
-                  />
+  
                 </span>
               </h1>
               <p className="mt-3 text-base text-gray-600 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
