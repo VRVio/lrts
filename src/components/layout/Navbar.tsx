@@ -1,16 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
-import DarkModeToggle from '../ui/DarkModeToggle';
+import { Menu, X } from 'lucide-react';
 import clsx from 'clsx';
 
-
 const Navbar = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return (
+      localStorage.getItem('theme') === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    );
+  });
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return !!localStorage.getItem('loggedIn');
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('loggedIn');
+    setIsLoggedIn(false);
+  };
+
+  useEffect(() => {
+    if (location.pathname === '/account' && !isLoggedIn) {
+      localStorage.setItem('loggedIn', 'true');
+      setIsLoggedIn(true);
+    }
+  }, [location.pathname, isLoggedIn]);
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -24,9 +54,6 @@ const Navbar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             LRTS दिल्ली
           </span>
-          <span className="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">
-                DEMO
-              </span>
         </Link>
         <button
           type="button"
@@ -38,21 +65,70 @@ const Navbar = () => {
           <span className="sr-only">Open main menu</span>
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
-        <div className={`w-full md:block md:w-auto ${isOpen ? 'block' : 'hidden'}`} id="navbar-default">
+        <div
+          className={`w-full md:block md:w-auto ${isOpen ? 'block' : 'hidden'}`}
+          id="navbar-default"
+        >
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-              <NavLink to="/" isActive={isActive('/')}>Home</NavLink>
+              <NavLink to="/" isActive={isActive('/')}>
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/zones" isActive={isActive('/zones')}>Zones</NavLink>
+              <NavLink to="/zones" isActive={isActive('/zones')}>
+                Zones
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/planner" isActive={isActive('/planner')}>Trip Planner</NavLink>
+              <NavLink to="/planner" isActive={isActive('/planner')}>
+                Trip Planner
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/passes" isActive={isActive('/passes')}>Passes</NavLink>
+              <NavLink to="/passes" isActive={isActive('/passes')}>
+                Passes
+              </NavLink>
             </li>
-
+            {isLoggedIn ? (
+              <>
+                <li>
+                  <NavLink to="/account" isActive={isActive('/account')}>
+                    Account
+                  </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
+                  >
+                    Log Out
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink to="/register" isActive={isActive('/register')}>
+                    Register
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/signin" isActive={isActive('/signin')}>
+                    Sign In
+                  </NavLink>
+                </li>
+              </>
+            )}
+            <li>
+              <button
+                id="theme-toggle"
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-primary-black hover:text-white hover:bg-primary-500 dark:hover:bg-primary-700 dark:text-white dark:bg-gray-700"
+              >
+                {isDarkMode ? '🌙' : '🌞'}
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -60,7 +136,15 @@ const Navbar = () => {
   );
 };
 
-const NavLink = ({ to, children, isActive }: { to: string; children: React.ReactNode; isActive: boolean }) => (
+const NavLink = ({
+  to,
+  children,
+  isActive,
+}: {
+  to: string;
+  children: React.ReactNode;
+  isActive: boolean;
+}) => (
   <Link
     to={to}
     className={clsx(
