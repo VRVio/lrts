@@ -1,39 +1,41 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { AnimatePresence } from 'framer-motion';
-import Navbar from './components/layout/Navbar';
-import Hero from './components/home/Hero';
-import Benefits from './components/features/Benefits';
-import PassCard from './components/passes/PassCard';
-import ExploreZones from './pages/ExploreZones';
-import TripPlanner from './pages/TripPlanner';
-import PassesPage from './pages/PassesPage';
-import Footer from './components/layout/Footer';
+import React, { Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { AnimatePresence } from "framer-motion";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Hero from "./components/home/Hero";
+import Benefits from "./components/features/Benefits";
+import PassCard from "./components/passes/PassCard";
+import ExploreZones from "./pages/ExploreZones";
+import TripPlanner from "./pages/TripPlanner";
+import PassesPage from "./pages/PassesPage";
+import SignInPage from "./pages/SignInPage";
+import RegisterPage from "./pages/RegisterPage";
+import AccountPage from "./pages/AccountPage";
 
-
-function HomePage() {
+const HomePage = () => {
   const passes = [
     {
-      title: 'Basic',
-      price: '999',
-      duration: 'month',
+      title: "Basic",
+      price: "999",
+      duration: "month",
       features: [
-        { text: 'Unlimited rides in one zone', included: true },
-        { text: 'Peak hour access', included: true },
-        { text: 'Multi-zone access', included: false },
-        { text: 'Priority booking', included: false },
+        { text: "Unlimited rides in one zone", included: true },
+        { text: "Peak hour access", included: true },
+        { text: "Multi-zone access", included: false },
+        { text: "Priority booking", included: false },
       ],
     },
     {
-      title: 'Standard',
-      price: '1499',
-      duration: 'month',
+      title: "Standard",
+      price: "1499",
+      duration: "month",
       features: [
-        { text: 'Unlimited rides in Multiple Zones', included: true },
-        { text: 'Peak hour access', included: true },
-        { text: 'Multi-zone access', included: true },
-        { text: 'Priority booking', included: true },
+        { text: "Unlimited rides in Multiple Zones", included: true },
+        { text: "Peak hour access", included: true },
+        { text: "Multi-zone access", included: true },
+        { text: "Priority booking", included: true },
       ],
       popular: true,
     },
@@ -60,25 +62,30 @@ function HomePage() {
       </div>
     </>
   );
-}
+};
 
-  function App() {
+function App() {
   return (
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Navbar />
-          <AnimatePresence mode="wait">
+    <Router basename="/lrts-dark">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+        <Navbar />
+        <AnimatePresence mode="wait">
+          <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/zones" element={<ExploreZones />} />
               <Route path="/planner" element={<TripPlanner />} />
               <Route path="/passes" element={<PassesPage />} />
+              <Route path="/signin" element={<SignInPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/account" element={<AccountPage />} />
             </Routes>
-          </AnimatePresence>
-          <Toaster position="top-right" />
-        </div>
-        <Footer />
-      </Router>
+          </Suspense>
+        </AnimatePresence>
+        <Toaster position="top-right" />
+      </div>
+      <Footer />
+    </Router>
   );
 }
 

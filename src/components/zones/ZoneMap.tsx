@@ -36,15 +36,15 @@ const ZoneMap: React.FC = () => {
             onClick={() => setSelectedZone(station.name)}
             className={`px-3 py-2 text-sm rounded-full transition-all ${
               selectedZone === station.name
-                ? 'bg-indigo-600 text-white'
-                : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
+                ? 'bg-indigo-600 text-blue'
+                : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-900 dark:text-indigo-400 dark:hover:bg-indigo-800'
             }`}
           >
             {station.name}
           </button>
         ))}
       </div>
-      
+
       <div className="h-[600px] w-full rounded-lg overflow-hidden shadow-lg">
         <MapContainer
           center={[28.6139, 77.2090]}
@@ -58,41 +58,43 @@ const ZoneMap: React.FC = () => {
           <ZoomToZone stationName={selectedZone} />
           {delhiMetroStations.map((station) => (
             <React.Fragment key={station.name}>
-              <Marker 
-                position={[station.lat, station.lng]} 
+              <Marker
+                position={[station.lat, station.lng]}
                 icon={customIcon}
               >
                 <Popup>
                   <div className="p-2 min-w-[200px]">
-                    <h3 className="font-bold text-lg text-indigo-600">{station.name}</h3>
+                    <h3 className="font-bold text-lg text-indigo-600 dark:text-indigo-300">{station.name}</h3>
                     <div className="space-y-2 mt-2">
                       <div className="flex items-center">
-                        <Users className="w-4 h-4 mr-2 text-indigo-500" />
+                        <Users className="w-4 h-4 mr-2 text-indigo-500 dark:text-indigo-400" />
                         <span>{station.rickshaws} rickshaws available</span>
                       </div>
                       <div className="flex items-center">
-                        <Clock className="w-4 h-4 mr-2 text-indigo-500" />
+                        <Clock className="w-4 h-4 mr-2 text-indigo-500 dark:text-indigo-400" />
                         <span>{station.waitTime} min average wait</span>
                       </div>
                       <div className="flex items-center">
                         {station.demand === 'High' ? (
-                          <AlertTriangle className="w-4 h-4 mr-2 text-red-500" />
+                          <AlertTriangle className="w-4 h-4 mr-2 text-red-500 dark:text-red-400" />
                         ) : (
-                          <CheckCircle2 className="w-4 h-4 mr-2 text-green-500" />
+                          <CheckCircle2 className="w-4 h-4 mr-2 text-green-500 dark:text-green-400" />
                         )}
-                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                          station.demand === 'High' 
-                            ? 'bg-red-100 text-red-800'
-                            : station.demand === 'Medium'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-green-100 text-green-800'
-                        }`}>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                            station.demand === 'High'
+                              ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-400'
+                              : station.demand === 'Medium'
+                              ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-400'
+                              : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-400'
+                          }`}
+                        >
                           {station.demand} Demand
                         </span>
                       </div>
                     </div>
                     <div className="mt-3 pt-3 border-t">
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         {station.landmarks} landmarks in zone
                       </p>
                     </div>

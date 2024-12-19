@@ -28,7 +28,7 @@ const TripPlanner: React.FC = () => {
       // Simulating geocoding API call with random coordinates in Delhi
       const lat = 28.6139 + (Math.random() - 0.5) * 0.1;
       const lon = 77.2090 + (Math.random() - 0.5) * 0.1;
-      
+
       const nearest = findNearestStations(lat, lon, delhiMetroStations);
       setSearchResult({ lat, lon, nearestStations: nearest });
     } catch (error) {
@@ -63,7 +63,7 @@ const TripPlanner: React.FC = () => {
               animate={{ opacity: 1 }}
               className="mt-8 space-y-6"
             >
-              <div className="h-[400px] rounded-lg overflow-hidden shadow-lg">
+              <div className="h-[400px] rounded-lg overflow-hidden shadow-lg dark:shadow-none">
                 <MapContainer
                   center={[searchResult.lat, searchResult.lon]}
                   zoom={13}

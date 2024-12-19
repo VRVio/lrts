@@ -5,6 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LRTS Demo</title>
+    <!-- Link to your Tailwind CSS or other global CSS here -->
+    <style>
+      /* Dark mode custom background and text colors */
+      .dark {
+        background-color: #00416a; /* Custom dark mode background color */
+        color: #ffffff; /* Text color for dark mode */
+      }
+    </style>
+    <script>
+      // Check for the user's preferred theme in localStorage or system preference
+      if (
+        localStorage.getItem('theme') === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
